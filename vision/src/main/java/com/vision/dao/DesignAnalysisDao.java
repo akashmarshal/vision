@@ -1414,11 +1414,7 @@ public class DesignAnalysisDao extends AbstractDao<DesignAnalysisVb> {
 			vcForQueryReportFieldsWrapperVb.getMainModel().setTotalRows(totalRows);
 			List<String> rowStringList = new ArrayList<String>();
 			/*getJdbcTemplate().query("SELECT * FROM (SELECT ROWNUM SID, "+selectvar+" FROM  "+TableName+" T "+(ValidationUtil.isValid(vcForQueryReportFieldsWrapperVb.getMainModel().getGroupBy1())?" GROUP BY ROWNUM, "+vcForQueryReportFieldsWrapperVb.getMainModel().getGroupBy1():"")+" ) WHERE SID >="+vcForQueryReportFieldsWrapperVb.getMainModel().getStartIndex()+" AND SID <= "+vcForQueryReportFieldsWrapperVb.getMainModel().getLastIndex(), new ResultSetExtractor<Object>() {*/
-			/*String subQuery= "SELECT ROWNUM SID, "+selectvar+" FROM  "+TableName+" T" ;
-			if(ValidationUtil.isValid(vcForQueryReportFieldsWrapperVb.getMainModel().getOrderBy())) {
-				subQuery = subQuery +" Order BY "+vcForQueryReportFieldsWrapperVb.getMainModel().getOrderBy();
-			}*/
-			String sql = "SELECT * FROM (SELECT ROWNUM SID, "+selectvar+" FROM  "+TableName+" T) WHERE SID >="+vcForQueryReportFieldsWrapperVb.getMainModel().getStartIndex()+" AND SID <= "+vcForQueryReportFieldsWrapperVb.getMainModel().getLastIndex();
+			String sql = "SELECT * FROM (SELECT ROWNUM SID, "+selectvar+" FROM  "+TableName+" T ) WHERE SID >="+vcForQueryReportFieldsWrapperVb.getMainModel().getStartIndex()+" AND SID <= "+vcForQueryReportFieldsWrapperVb.getMainModel().getLastIndex();
 			getJdbcTemplate().query(sql, new ResultSetExtractor<Object>() {
 				@Override
 				public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
