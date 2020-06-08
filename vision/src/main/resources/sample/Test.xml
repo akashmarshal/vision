@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<TABLE>  
+  <table_name>ERROR_CODES</table_name>
+  <columns>
+	<COLUMN>ERROR_CODE</COLUMN>
+	<column>ERROR_DESCRIPTION</column>
+	<COLUMN>ERROR_TYPE_NT</COLUMN>
+	<COLUMN>ERROR_TYPE</COLUMN>
+	<COLUMN>ERROR_STATUS_NT</COLUMN>
+	<COLUMN>ERROR_STATUS</COLUMN>
+  </columns>
+  <row>
+    <DCOLUMN>888</DCOLUMN>
+    <DCOLUMN>Test 888 Description</DCOLUMN>
+    <DCOLUMN>3</DCOLUMN>
+    <DCOLUMN>1</DCOLUMN>
+    <DCOLUMN>1</DCOLUMN>
+    <DCOLUMN>0</DCOLUMN>
+   </row>
+  <ROW>
+    <DCOLUMN>999</DCOLUMN>
+    <DCOLUMN>Test 999 Description</DCOLUMN>
+    <DCOLUMN>3</DCOLUMN>
+    <DCOLUMN>2</DCOLUMN>
+    <DCOLUMN>1</DCOLUMN>
+    <DCOLUMN>0</DCOLUMN>
+</ROW>  
+  <row>
+    <DCOLUMN>2222</DCOLUMN>
+    <DCOLUMN>Test 2222 Description</DCOLUMN>
+    <DCOLUMN>3</DCOLUMN>
+    <DCOLUMN>2</DCOLUMN>
+    <DCOLUMN>1</DCOLUMN>
+    <DCOLUMN>0</DCOLUMN>
+  </row> 
+</TABLE>   

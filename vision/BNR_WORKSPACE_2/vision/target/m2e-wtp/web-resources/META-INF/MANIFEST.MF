@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: vision
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: john
+Implementation-Vendor-Id: com.vision
+Build-Jdk: 1.8.0_201
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/vision
+Created-By: Maven Integration for Eclipse
+

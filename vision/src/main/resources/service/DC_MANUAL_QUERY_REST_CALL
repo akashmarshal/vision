@@ -1,0 +1,64 @@
+http://10.16.1.120:8090/generateKeypair
+http://10.16.1.120:8090/authenticate
+
+Get Hash List
+http://10.16.1.120:8090/getHashList
+{
+  "sqlQuery":"select * from vision_variables  where VV_CATEGORY = '#Variable Category#' and rownum < #rownum#"
+
+}
+
+ADD Manual Query
+http://10.16.1.120:8090/addManualQuery?queryValidFlag&hashArr=VARIABLE_CATEGORY,ROWNUM&hashValArr=BUILD,5
+{
+  "sqlQuery":"select * from vision_variables  where VV_CATEGORY = '#Variable Category#' and rownum < #rownum#",
+  "databaseConnectivityDetails": "DEFAULT_VISION_DB",
+  "queryId": "RESTTEST",
+  "queryDescription": "RESTTEST",
+  "lookupDataLoading": "MEMORY"
+}
+
+
+ADD Manual Query Data
+http://10.16.1.120:8090/addManualQuery?queryValidFlag&hashArr=VARIABLE_CATEGORY,ROWNUM&hashValArr=BUILD,5
+{
+  "sqlQuery":"select * from vision_variables  where VV_CATEGORY = '#Variable Category#' and rownum < #rownum#",
+  "databaseConnectivityDetails": "DEFAULT_VISION_DB",
+  "queryId": "ooood",
+  "queryDescription": "AARESI",
+  "lookupDataLoading": "MEMORY",
+  "queryColumnXML": "<columns><column><name>VARIABLE</name><type>D</type></column><column><name>VALUE</name><type>D</type></column><column><name>READ_ONLY</name><type>D</type></column><column><name>VARIABLE_STATUS_NT</name><type>M</type></column><column><name>VARIABLE_STATUS</name><type>M</type></column><column><name>RECORD_INDICATOR_NT</name><type>M</type></column><column><name>RECORD_INDICATOR</name><type>M</type></column><column><name>MAKER</name><type>M</type></column><column><name>VERIFIER</name><type>M</type></column><column><name>INTERNAL_STATUS</name><type>M</type></column><column><name>DATE_LAST_MODIFIED</name><type>D</type></column><column><name>DATE_CREATION</name><type>D</type></column><column><name>VV_CATEGORY_AT</name><type>M</type></column><column><name>VV_CATEGORY</name><type>D</type></column><column><name>SHORT_DESCRIPTION</name><type>D</type></column></columns>",
+  "hashVariableScript": "{VARIABLE_CATEGORY:@HASH@CONSTANT$@!BUILD@HASH@}{ROWNUM:@HASH@CONSTANT$@!3@HASH@}"
+}
+
+Delete Manual Query
+http://10.16.1.120:8090/deleteManualQuery
+{
+  "queryColumnXML":"<columns><column><name>VARIABLE</name><type>D</type></column><column><name>VALUE</name><type>D</type></column><column><name>READ_ONLY</name><type>D</type></column><column><name>VARIABLE_STATUS_NT</name><type>M</type></column><column><name>VARIABLE_STATUS</name><type>M</type></column><column><name>RECORD_INDICATOR_NT</name><type>M</type></column><column><name>RECORD_INDICATOR</name><type>M</type></column><column><name>MAKER</name><type>M</type></column><column><name>VERIFIER</name><type>M</type></column><column><name>INTERNAL_STATUS</name><type>M</type></column><column><name>DATE_LAST_MODIFIED</name><type>D</type></column><column><name>DATE_CREATION</name><type>D</type></column><column><name>VV_CATEGORY_AT</name><type>M</type></column><column><name>VV_CATEGORY</name><type>D</type></column><column><name>SHORT_DESCRIPTION</name><type>D</type></column></columns>",
+  "sqlQuery":"select * from vision_variables  where VV_CATEGORY = '#Variable Category#' and rownum < #rownum#",
+  "databaseConnectivityDetails": "DEFAULT_VISION_DB",
+  "queryId": "OOOOO",
+  "queryDescription": "RESTTEST",
+  "lookupDataLoading": "MEMORY",
+  "maker": "0",
+  "verifier": "0",
+  "vcqStatus": "0",
+  "recordIndicator": "-1",
+  "hashVariableScript": "{VARIABLE_CATEGORY:@HASH@CONSTANT$@!BUILD@HASH@}{ROWNUM:@HASH@CONSTANT$@!2@HASH@}"
+}
+
+Validate Manual Query
+http://10.16.1.120:8090/validateManualQuery?hashArr=VARIABLE_CATEGORY,ROWNUM&hashValArr=BUILD,2
+{
+  "queryColumnXML":"<columns><column><name>VARIABLE</name><type>D</type></column><column><name>VALUE</name><type>D</type></column><column><name>READ_ONLY</name><type>D</type></column><column><name>VARIABLE_STATUS_NT</name><type>M</type></column><column><name>VARIABLE_STATUS</name><type>M</type></column><column><name>RECORD_INDICATOR_NT</name><type>M</type></column><column><name>RECORD_INDICATOR</name><type>M</type></column><column><name>MAKER</name><type>M</type></column><column><name>VERIFIER</name><type>M</type></column><column><name>INTERNAL_STATUS</name><type>M</type></column><column><name>DATE_LAST_MODIFIED</name><type>D</type></column><column><name>DATE_CREATION</name><type>D</type></column><column><name>VV_CATEGORY_AT</name><type>M</type></column><column><name>VV_CATEGORY</name><type>D</type></column></columns>",
+  "sqlQuery":"select * from vissdfdion_variables  where VV_CATEGORY = '#Variable Category#' and rownum < #rownum#",
+  "databaseConnectivityDetails": "DEFAULT_VISION_DB",
+  "queryId": "RESTTEST",
+  "queryDescription": "RESTTEST",
+  "lookupDataLoading": "MEMORY",
+  "maker": "0",
+  "verifier": "0",
+  "vcqStatus": "0",
+  "recordIndicator": "-1",
+  "hashVariableScript": "{VARIABLE_CATEGORY:@HASH@CONSTANT$@!BUILD@HASH@}{ROWNUM:@HASH@CONSTANT$@!2@HASH@}"
+}

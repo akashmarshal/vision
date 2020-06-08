@@ -1,0 +1,47 @@
+{
+	"table": {
+		"table_name": "ERROR_CODES",
+		"columns": {
+			"column": [
+				"ERROR_CODE",
+				"ERROR_DESCRIPTION",
+				"ERROR_TYPE_NT",
+				"ERROR_TYPE",
+				"ERROR_STATUS_NT",
+				"ERROR_STATUS"
+			]
+		},
+		"row": [
+			{
+				"dcolumn": [
+					"888",
+					"Test 888 Description",
+					"3",
+					"1",
+					"1",
+					"0"
+				]
+			},
+			{
+				"DCOLUMN": [
+					"999",
+					"Test 999 Description",
+					"3",
+					"2",
+					"1",
+					"0"
+				]
+			},
+			{
+				"DCOLUMN": [
+					"2222",
+					"Test 2222 Description",
+					"3",
+					"2",
+					"1",
+					"0"
+				]
+			}
+		]
+	}
+}
