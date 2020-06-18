@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,6 +50,9 @@ public class VcConfigMainWb extends AbstractWorkerBean<VcConfigMainVb>{
 	
 	@Autowired
 	private CommonDao commonDao;
+	
+	@Autowired
+	private Environment env;
 	
 	@Override
 	protected void setVerifReqDeleteType(VcConfigMainVb vObject){
@@ -379,6 +383,7 @@ public class VcConfigMainWb extends AbstractWorkerBean<VcConfigMainVb>{
 		String dbSetParam1 =CommonUtils.getValue(dbScript, "DB_SET_PARAM1");
 		String dbSetParam2 =CommonUtils.getValue(dbScript, "DB_SET_PARAM2");
 		String dbSetParam3 =CommonUtils.getValue(dbScript, "DB_SET_PARAM3");
+		String parentDbUserName = env.getProperty("spring.datasource.username");
 		try{
 			String tableQuery = "";
 			stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
@@ -393,13 +398,13 @@ public class VcConfigMainWb extends AbstractWorkerBean<VcConfigMainVb>{
 						(ValidationUtil.isValid(excludeTableListStr)?" AND TABLE_NAME not in "+excludeTableListStr:"")+
 						" ORDER BY TABLE_NAME";*/
 				if(ValidationUtil.isValid(excludeTableListStr)){
-					tableQuery = " SELECT TABLE_NAME FROM USER_TABLES WHERE TABLE_NAME NOT IN "+excludeTableListStr
+					tableQuery = " SELECT TABLE_NAME FROM ALL_TABLES WHERE TABLE_NAME NOT IN "+excludeTableListStr+" and UPPER(OWNER)= UPPER('"+parentDbUserName+"') "
 							+ " UNION "
-							+ " SELECT VIEW_NAME TABLE_NAME FROM USER_VIEWS WHERE VIEW_NAME NOT IN "+excludeTableListStr;
+							+ " SELECT VIEW_NAME TABLE_NAME FROM ALL_VIEWS WHERE VIEW_NAME NOT IN "+excludeTableListStr + " and UPPER(OWNER)= UPPER('"+parentDbUserName+"') ";
 				} else {
-					tableQuery = " SELECT TABLE_NAME FROM USER_TABLES "
+					tableQuery = " SELECT TABLE_NAME FROM ALL_TABLES  WHERE UPPER(OWNER)= UPPER('"+parentDbUserName+"') "
 							+ " UNION "
-							+ " SELECT VIEW_NAME TABLE_NAME FROM USER_VIEWS ";
+							+ " SELECT VIEW_NAME TABLE_NAME FROM ALL_VIEWS  WHERE UPPER(OWNER)= UPPER('"+parentDbUserName+"') ";
 				}
 				
 			}else if("MYSQL".equalsIgnoreCase(dataBaseType)){
