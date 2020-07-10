@@ -13,7 +13,7 @@
 	<artifactId>vision</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>vision</name>
+	<name>SSBI</name>
 	<description>Actual Self BI Project</description>
 
 	<properties>
@@ -203,7 +203,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-		<finalName>vision</finalName>
+		<finalName>SSBI</finalName>
 	</build>
 
 </project>

@@ -457,7 +457,8 @@ public class CommonUtils {
 			dbIP = dbIp;
 		try{
 			if("ORACLE".equalsIgnoreCase(dataBaseType)){
-				jdbcUrl = "jdbc:oracle:thin:@"+dbIP+":"+dbPortNumber+":"+hostName;
+//				jdbcUrl = "jdbc:oracle:thin:@"+dbIP+":"+dbPortNumber+":"+hostName;
+				jdbcUrl = "jdbc:oracle:thin:@//"+dbIP+":"+dbPortNumber+"/"+hostName;
 				con = getDbConnection(jdbcUrl, dbUserName, dbPassWord, "ORACLE", version);
 			}else if("MSSQL".equalsIgnoreCase(dataBaseType)){
 				if(ValidationUtil.isValid(dbInstance) && ValidationUtil.isValid(hostName)){

@@ -373,7 +373,7 @@ public class VcConfigMainWb extends AbstractWorkerBean<VcConfigMainVb>{
 		Connection con = null;
 		Statement stmt = null;
 		ResultSet rs = null;
-		exceptionCode = getConnection(dbScript);
+		exceptionCode = CommonUtils.getConnection(dbScript);
 		if(exceptionCode.getErrorCode()==Constants.SUCCESSFUL_OPERATION){
 			con = (Connection) exceptionCode.getResponse();
 		}else{
@@ -555,7 +555,7 @@ public class VcConfigMainWb extends AbstractWorkerBean<VcConfigMainVb>{
 		Statement stmt = null;
 		ResultSet rs = null;
 		
-		exceptionCode = getConnection(dbScript);
+		exceptionCode = CommonUtils.getConnection(dbScript);
 		if(exceptionCode.getErrorCode()==Constants.SUCCESSFUL_OPERATION){
 			con = (Connection) exceptionCode.getResponse();
 		}else{
@@ -578,7 +578,7 @@ public class VcConfigMainWb extends AbstractWorkerBean<VcConfigMainVb>{
 			NumSubTabVb vObjNum = vcConfigMainDao.getActiveNumTab(2004, dataBaseType);
 			Map<String, String> dataTypeMap = vcConfigMainDao.getDataTypeMap(2014, (ValidationUtil.isValid(vObjNum)&&ValidationUtil.isValid(vObjNum.getNumSubTab()))?(vObjNum.getNumSubTab()+""):"");
 			if("ORACLE".equalsIgnoreCase(dataBaseType)){
-				tableQuery = "SELECT COLUMN_NAME, DATA_TYPE FROM USER_TAB_COLUMNS where UPPER(TABLE_NAME) = UPPER('"+tableName+"') ORDER BY TABLE_NAME, COLUMN_ID";
+				tableQuery = "SELECT COLUMN_NAME, DATA_TYPE FROM ALL_TAB_COLUMNS where UPPER(TABLE_NAME) = UPPER('"+tableName+"') ORDER BY TABLE_NAME, COLUMN_ID";
 			}else if("MYSQL".equalsIgnoreCase(dataBaseType)){
 				String dbSchema =CommonUtils.getValue(dbScript, "DB_SCHEMA");
 				if(ValidationUtil.isValid(dbSchema)){

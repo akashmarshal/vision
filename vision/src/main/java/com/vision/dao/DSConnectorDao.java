@@ -81,7 +81,7 @@ public class DSConnectorDao extends AbstractDao<DSConnectorVb> {
 					       " TO_CHAR (t1.DATE_CREATION, 'DD-MM-YYYY HH24:MI:SS') DATE_CREATION, "+
 					       " 'TRUE' AS VALIDFLAG FROM VISION_DYNAMIC_HASH_VAR t1 LEFT JOIN DATACONNECTOR_LOD t2 ON (t1.VARIABLE_NAME = T2.VARIABLE_NAME) "+
 					 " WHERE VARIABLE_TYPE = 2 AND VARIABLE_SCRIPT NOT LIKE ('{CONNECTIVITY_TYPE:#CONSTANT%') "+
-					       " AND SCRIPT_TYPE IN ('MACROVAR', 'FILE')  "+
+					       " AND  ((SCRIPT_TYPE = 'MACROVAR' AND t1.VARIABLE_NAME = 'DEFAULT_SSBI_DB') OR   (SCRIPT_TYPE = 'FILE' )) "+
 					       " AND (T1.MAKER = '"+intCurrentUserId+"' OR (T2.USER_GROUP = '"+userGroup+"' AND USER_PROFILE = '"+userProfile+"')) "+
 					       " UNION "+
 					" SELECT QUERY_ID CONNECTOR_ID, QUERY_DESCRIPTION DESCRIPTION, 'M_QUERY' TYPE, "+
@@ -270,7 +270,7 @@ public class DSConnectorDao extends AbstractDao<DSConnectorVb> {
 	
 	public List getAllValidConnectors() {
 		String sql = "select * from ( "+
-				"select SCRIPT_TYPE \"scriptType\", VARIABLE_NAME \"macroVar\", VARIABLE_DESCRIPTION \"description\" from vision_dynamic_hash_var where SCRIPT_TYPE='MACROVAR' AND VARIABLE_SCRIPT like '{DATABASE%' "+
+				"select SCRIPT_TYPE \"scriptType\", VARIABLE_NAME \"macroVar\", VARIABLE_DESCRIPTION \"description\" from vision_dynamic_hash_var where VARIABLE_NAME = 'DEFAULT_SSBI_DB' "+
 				"UNION "+
 				"select SCRIPT_TYPE \"scriptType\", VARIABLE_NAME \"macroVar\", VARIABLE_DESCRIPTION \"description\" from vision_dynamic_hash_var where SCRIPT_TYPE='FILE' "+
 				"UNION "+
@@ -815,7 +815,7 @@ public class DSConnectorDao extends AbstractDao<DSConnectorVb> {
 			       " TO_CHAR (t1.DATE_CREATION, 'DD-MM-YYYY HH24:MI:SS') DATE_CREATION, "+
 			       " 'TRUE' AS VALIDFLAG FROM VISION_DYNAMIC_HASH_VAR t1 LEFT JOIN DATACONNECTOR_LOD t2 ON (t1.VARIABLE_NAME = T2.VARIABLE_NAME) "+
 			 " WHERE VARIABLE_TYPE = 2 AND VARIABLE_SCRIPT NOT LIKE ('{CONNECTIVITY_TYPE:#CONSTANT%') "+
-			       " AND SCRIPT_TYPE IN ('MACROVAR', 'FILE')  "+
+			       " AND  ((SCRIPT_TYPE = 'MACROVAR' AND t1.VARIABLE_NAME = 'DEFAULT_SSBI_DB') OR   (SCRIPT_TYPE = 'FILE' ))"+
 			       " AND (T1.MAKER = '"+intCurrentUserId+"' OR (T2.USER_GROUP = '"+userGroup+"' AND USER_PROFILE = '"+userProfile+"')) "+
 			       " UNION "+
 			" SELECT QUERY_ID CONNECTOR_ID, QUERY_DESCRIPTION DESCRIPTION, 'M_QUERY' TYPE, "+
@@ -1251,9 +1251,9 @@ public class DSConnectorDao extends AbstractDao<DSConnectorVb> {
 	}
 
 	public void doDeleteMappingTable(DSConnectorVb vObject) {
-	String tableName = 	getJdbcTemplate().queryForObject("select SELF_BI_MAPPING_TABLE_NAME from CONNECTOR_FILE_UPLOAD_MAPPER where UPPER(CONNECTOR_ID) = UPPER('"+vObject.getMacroVar()+"')", String.class);
+	List<String> tableName = 	getJdbcTemplate().queryForList("select SELF_BI_MAPPING_TABLE_NAME from CONNECTOR_FILE_UPLOAD_MAPPER where UPPER(CONNECTOR_ID) = UPPER('"+vObject.getMacroVar()+"')", String.class);
 	getJdbcTemplate().execute("DELETE FROM CONNECTOR_FILE_UPLOAD_MAPPER  where UPPER(CONNECTOR_ID) = UPPER('"+vObject.getMacroVar()+"')");
-	getJdbcTemplate().execute("DROP TABLE "+tableName+" PURGE");
+	tableName.stream().forEach(tablenm-> { try{getJdbcTemplate().execute("DROP TABLE "+tablenm+" PURGE");} catch(Exception e){e.printStackTrace();} });
 	}              
 
 }
